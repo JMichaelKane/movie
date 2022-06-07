@@ -1,6 +1,4 @@
 <script setup lang="ts">
-	import { ref } from "vue";
-	import { useRoute } from "vue-router";
 	import { urlProcess } from "../composables/play";
 	import { base_url } from "../composables/base";
 	const route = useRoute(); //定义路由处理
@@ -13,13 +11,15 @@
 		description: "",
 	}); //定义movie信息获取
 	const url = ref(); //定义播放链接
+	onBeforeMount(() => {
+		fetch(base_url + "play/" + route.params.id)
+			.then((response) => response.json())
+			.then((data) => {
+				movie.value = data;
+				url.value = urlProcess(movie.value.url)[0].value;
+			}); //获取电影信息
+	});
 
-	fetch(base_url + "play/" + route.params.id)
-		.then((response) => response.json())
-		.then((data) => {
-			movie.value = data;
-			url.value = urlProcess(movie.value.url)[0].value;
-		}); //获取电影信息
 	function judge(item: any) {
 		return typeof item.value != "undefined";
 	}

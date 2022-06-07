@@ -1,14 +1,10 @@
 <script setup lang="ts">
-	import { ref } from "vue";
-
 	const props = defineProps<{
 		imgUrl: string;
 	}>();
 
 	const s = ref(false);
 	const imgSrc = ref();
-
-	// console.log(props.imgUrl);
 
 	fetch(props.imgUrl, {
 		method: "GET",

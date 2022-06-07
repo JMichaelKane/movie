@@ -1,6 +1,5 @@
 <script setup lang="ts">
 	import { watchPostEffect } from "vue";
-	import { useRoute } from "vue-router";
 	import { Get, Movie } from "../composables/home";
 	import { deal } from "../composables/public";
 	import { base_url } from "../composables/base";
