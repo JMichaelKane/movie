@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import logo from "../../assets/logo_.png";
+	import logo from "../../../assets/logo_.png";
 	const options = [
 		{
 			label: "滨海湾金沙，新加坡",

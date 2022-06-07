@@ -1,8 +1,8 @@
 <script setup lang="ts">
 	import { ref } from "vue";
-	import { Get, Movie } from "../../composables/home";
-	import { deal } from "../../composables/public";
-	import { base_url } from "../../composables/base";
+	import { Get, Movie } from "../../../composables/home";
+	import { deal } from "../../../composables/public";
+	import { base_url } from "../../../composables/base";
 
 	const movies1 = ref<Movie>({
 		movies: [],

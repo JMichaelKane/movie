@@ -1,5 +1,5 @@
 <script setup lang="ts">
-	import { deal } from "../../composables/public";
+	import { deal } from "../../../composables/public";
 	const props = defineProps(["name", "director", "actor", "description"]);
 </script>
 
