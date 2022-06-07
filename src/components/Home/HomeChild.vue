@@ -1,29 +1,46 @@
 <script setup lang="ts">
 	import { ref } from "vue";
-	import { Get } from "../../composables/home";
+	import { Get, Movie } from "../../composables/home";
 	import { deal } from "../../composables/public";
 	import { base_url } from "../../composables/base";
 
-	const movies1 = ref(); //电影
-	const movies2 = ref(); //电视剧
-	const movies3 = ref(); //动漫
-	Get(base_url + "category/1", {
-		num: 12,
-		pg: 1,
-	}).then((res: any) => {
-		movies1.value = res.movies;
-	});
-	Get(base_url + "category/3", {
-		num: 12,
-		pg: 1,
-	}).then((res: any) => {
-		movies2.value = res.movies;
-	});
-	Get(base_url + "category/2", {
-		num: 12,
-		pg: 1,
-	}).then((res: any) => {
-		movies3.value = res.movies;
+	const movies1 = ref<Movie>({
+		movies: [],
+		pgCount: 0,
+	}); //电影
+	const movies2 = ref<Movie>({
+		movies: [],
+		pgCount: 0,
+	}); //电视剧
+	const movies3 = ref<Movie>({
+		movies: [],
+		pgCount: 0,
+	}); //动漫
+	onMounted(() => {
+		Get(
+			base_url + "category/1",
+			{
+				num: 12,
+				pg: 1,
+			},
+			movies1
+		);
+		Get(
+			base_url + "category/3",
+			{
+				num: 12,
+				pg: 1,
+			},
+			movies1
+		);
+		Get(
+			base_url + "category/2",
+			{
+				num: 12,
+				pg: 1,
+			},
+			movies3
+		);
 	});
 </script>
 
@@ -33,7 +50,7 @@
 		<n-grid cols="5" item-responsive responsive="screen">
 			<n-grid-item span="5 l:5">
 				<n-grid cols="3 l:6" item-responsive responsive="screen">
-					<n-grid-item v-for="movie in movies1" :id="movie.id">
+					<n-grid-item v-for="movie in movies1.movies" :id="movie.id">
 						<router-link :to="'/play/' + movie.id">
 							<Mv
 								:imgUrl="movie.pic"
@@ -49,7 +66,7 @@
 		<n-grid cols="5" item-responsive responsive="screen">
 			<n-grid-item span="5 l:5">
 				<n-grid cols="3 l:6" item-responsive responsive="screen">
-					<n-grid-item v-for="movie in movies3" :id="movie.id">
+					<n-grid-item v-for="movie in movies3.movies" :id="movie.id">
 						<router-link :to="'/play/' + movie.id">
 							<Mv
 								:imgUrl="movie.pic"
@@ -65,7 +82,7 @@
 		<n-grid cols="5" item-responsive responsive="screen">
 			<n-grid-item span="5 l:5">
 				<n-grid cols="3 l:6" item-responsive responsive="screen">
-					<n-grid-item v-for="movie in movies2" :id="movie.id">
+					<n-grid-item v-for="movie in movies2.movies" :id="movie.id">
 						<router-link :to="'/play/' + movie.id">
 							<Mv
 								:imgUrl="movie.pic"

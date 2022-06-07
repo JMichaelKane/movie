@@ -1,28 +1,31 @@
 <script setup lang="ts">
-	import { ref, watchPostEffect } from "vue";
+	import { watchPostEffect } from "vue";
 	import { useRoute } from "vue-router";
-	import { Get } from "../composables/home";
+	import { Get, Movie } from "../composables/home";
 	import { deal } from "../composables/public";
 	import { base_url } from "../composables/base";
 
 	const route = useRoute(); //获取路由
 	const change = ref(false); //切换按钮
 
-	const result = ref<any>({
+	const result = ref<Movie>({
 		movies: [],
+		pgCount: 0,
 	});
 	const page = ref(1);
-	const pageCount = ref(1);
-	watchPostEffect(() => {
-		Get(base_url + "search", {
-			keyword: route.params.keyword,
-			pg: page.value,
-			num: 20,
-		}).then((data) => {
-			result.value = data;
-			change.value = true;
-			pageCount.value = data.pgCount;
-			// console.log(data.pgCount);
+	onMounted(() => {
+		watchPostEffect(() => {
+			Get(
+				base_url + "search",
+				{
+					keyword: route.params.keyword,
+					pg: page.value,
+					num: 20,
+				},
+				result
+			).then(() => {
+				change.value = true;
+			});
 		});
 	});
 </script>
@@ -51,7 +54,7 @@
 			</template>
 		</n-list>
 		<n-space justify="center">
-			<n-pagination v-model:page="page" :page-count="pageCount" />
+			<n-pagination v-model:page="page" :page-count="result.pgCount" />
 		</n-space>
 	</div>
 </template>
