@@ -30,32 +30,42 @@
 </script>
 
 <template>
-	<div>
-		<n-list bordered>
-			<template #header> 影片搜索结果 </template>
-			<template v-if="change">
-				<template v-for="movie in result.movies" :key="movie.id">
-					<router-link :to="'/play/' + movie.id">
-						<SearchResult
-							:imgUrl="movie.pic"
-							:name="movie.name"
-							:desc="deal(movie.description)"
-							:director="movie.director"
-							:actor="movie.actor"
-							category=""
-							:id="movie.id"
-						/>
-					</router-link>
+	<Header></Header>
+	<n-grid cols=" 6 l:10 " item-responsive responsive="screen">
+		<n-grid-item span="6" offset="0 l:2">
+			<n-list bordered>
+				<template #header> 影片搜索结果 </template>
+				<template v-if="change">
+					<template v-for="movie in result.movies" :key="movie.id">
+						<router-link :to="'/play/' + movie.id">
+							<SearchResult
+								:imgUrl="movie.pic"
+								:name="movie.name"
+								:desc="deal(movie.description)"
+								:director="movie.director"
+								:actor="movie.actor"
+								category=""
+								:id="movie.id"
+							/>
+						</router-link>
+					</template>
 				</template>
-			</template>
-			<template v-else>
-				<SearchTmp v-for="none in 4" />
-			</template>
-		</n-list>
-		<n-space justify="center">
-			<n-pagination v-model:page="page" :page-count="result.pgCount" />
-		</n-space>
-	</div>
+				<template v-else>
+					<SearchTmp v-for="none in 4" />
+				</template>
+			</n-list>
+			<n-space justify="center">
+				<n-pagination v-model:page="page" :page-count="result.pgCount" />
+			</n-space>
+		</n-grid-item>
+	</n-grid>
+	<n-back-top :right="100" />
+	<div class="no"></div>
 </template>
 
-<style></style>
+<style>
+	.no {
+		width: 100%;
+		height: 50px;
+	}
+</style>

@@ -16,6 +16,11 @@ const routes: Array<RouteRecordRaw> = [
 		name: "play",
 		component: () => import("../components/Play.vue"),
 	},
+	{
+		path: "/user",
+		name: "user",
+		component: () => import("../components/User.vue"),
+	},
 ];
 
 const router = createRouter({

@@ -8,10 +8,12 @@ declare module '@vue/runtime-core' {
     Bar: typeof import('./src/components/Home/Bar.vue')['default']
     Class: typeof import('./src/components/Header/Class.vue')['default']
     Dplayer: typeof import('./src/components/Play/Dplayer.vue')['default']
-    Header: typeof import('./src/components/Header.vue')['default']
+    Front: typeof import('./src/components/Front.vue')['default']
+    Header: typeof import('./src/components/Header/Header.vue')['default']
     Home: typeof import('./src/components/Home.vue')['default']
     HomeChild: typeof import('./src/components/Home/HomeChild.vue')['default']
     ImgLazy: typeof import('./src/components/SearchResult/imgLazy.vue')['default']
+    Login: typeof import('./src/components/User/Login.vue')['default']
     Mv: typeof import('./src/components/PublicComponents/Mv.vue')['default']
     NBackTop: typeof import('naive-ui')['NBackTop']
     NButton: typeof import('naive-ui')['NButton']
@@ -39,6 +41,7 @@ declare module '@vue/runtime-core' {
     Searcher: typeof import('./src/components/Header/Searcher.vue')['default']
     SearchResult: typeof import('./src/components/SearchResult/SearchResult.vue')['default']
     SearchTmp: typeof import('./src/components/SearchResult/SearchTmp.vue')['default']
+    User: typeof import('./src/components/User.vue')['default']
   }
 }
 

@@ -1,0 +1,5 @@
+<script setup lang="ts"></script>
+
+<template>666666666</template>
+
+<style></style>

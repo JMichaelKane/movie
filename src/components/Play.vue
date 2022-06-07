@@ -26,24 +26,31 @@
 </script>
 
 <template>
-	<div class="play">
-		<Dplayer :url="url" />
-		<PlayMsg
-			:name="movie.name"
-			:director="movie.director"
-			:actor="movie.actor"
-			:description="movie.description"
-		/>
-		<div class="anthology">
-			<n-space>
-				<template v-for="item in urlProcess(movie.url)">
-					<n-button v-if="judge(item)" @click="url = item.value">
-						{{ item.name }}
-					</n-button>
-				</template>
-			</n-space>
-		</div>
-	</div>
+	<Header></Header>
+	<n-grid cols=" 6 l:10 " item-responsive responsive="screen">
+		<n-grid-item span="6" offset="0 l:2">
+			<div class="play">
+				<Dplayer :url="url" />
+				<PlayMsg
+					:name="movie.name"
+					:director="movie.director"
+					:actor="movie.actor"
+					:description="movie.description"
+				/>
+				<div class="anthology">
+					<n-space>
+						<template v-for="item in urlProcess(movie.url)">
+							<n-button v-if="judge(item)" @click="url = item.value">
+								{{ item.name }}
+							</n-button>
+						</template>
+					</n-space>
+				</div>
+			</div>
+		</n-grid-item>
+	</n-grid>
+	<n-back-top :right="100" />
+	<div class="no"></div>
 </template>
 
 <style>
@@ -52,5 +59,9 @@
 	}
 	.anthology {
 		margin-top: 20px;
+	}
+	.no {
+		width: 100%;
+		height: 50px;
 	}
 </style>
