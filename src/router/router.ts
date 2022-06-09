@@ -34,9 +34,14 @@ const routes: Array<RouteRecordRaw> = [
 				component: () => import("../components/User/Panel/PanelHome/PanelHome.vue"),
 			},
 			{
+				path: "source",
+				name: "source",
+				component: () => import("../components/User/panel/PanelSource/PanelSource.vue"),
+			},
+			{
 				path: "movies",
-				name:"movies",
-				component:()=>import("../components/User/panel/PanelMovies/PanelMovies.vue")
+				name: "movies",
+				component: () => import("../components/User/panel/PanelMovies/PanelMovies.vue"),
 			},
 		],
 	},
