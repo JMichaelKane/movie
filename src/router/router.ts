@@ -7,27 +7,43 @@ const routes: Array<RouteRecordRaw> = [
 		component: () => import("../components/Front.vue"),
 		children: [
 			{
-				path: "/",
+				path: "",
 				name: "home",
 				component: () => import("../components/Front/Home.vue"),
 			},
 			{
-				path: "/search/:keyword",
+				path: "search/:keyword",
 				name: "search",
 				component: () => import("../components/Front/Search.vue"),
 			},
 			{
-				path: "/play/:id",
+				path: "play/:id",
 				name: "play",
 				component: () => import("../components/Front/Play.vue"),
 			},
 		],
 	},
-
 	{
 		path: "/user",
 		name: "user",
 		component: () => import("../components/User.vue"),
+		children: [
+			{
+				path: "panel",
+				name: "panel",
+				component: () => import("../components/User/Panel/PanelHome/PanelHome.vue"),
+			},
+			{
+				path: "movies",
+				name:"movies",
+				component:()=>import("../components/User/panel/PanelMovies/PanelMovies.vue")
+			},
+		],
+	},
+	{
+		path: "/user/login",
+		name: "login",
+		component: () => import("../components/Login.vue"),
 	},
 ];
 

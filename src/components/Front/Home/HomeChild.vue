@@ -31,7 +31,7 @@
 				num: 12,
 				pg: 1,
 			},
-			movies1
+			movies2
 		);
 		Get(
 			base_url + "category/2",
