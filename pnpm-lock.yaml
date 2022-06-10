@@ -4,6 +4,7 @@ specifiers:
   '@types/dplayer': ^1.25.2
   '@types/hls.js': ^1.0.0
   '@types/qs': ^6.9.7
+  '@vicons/fluent': ^0.12.0
   '@vicons/ionicons5': ^0.12.0
   '@vitejs/plugin-vue': ^2.3.3
   axios: ^0.27.2
@@ -33,6 +34,7 @@ dependencies:
 
 devDependencies:
   '@types/hls.js': 1.0.0
+  '@vicons/fluent': 0.12.0
   '@vitejs/plugin-vue': 2.3.3_vite@2.9.10+vue@3.2.37
   naive-ui: 2.30.2_vue@3.2.37
   typescript: 4.7.3
@@ -141,6 +143,10 @@ packages:
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
     dev: false
+
+  /@vicons/fluent/0.12.0:
+    resolution: {integrity: sha512-ATCiqPuiJ6RI5GBlD3BIpZ9Xw4MsCA4RpI5oR6MCti4quS4mX1Gp6N74FCzw7lgOj+80rV4HMKhZTVInwimpVQ==}
+    dev: true
 
   /@vicons/ionicons5/0.12.0:
     resolution: {integrity: sha512-Iy1EUVRpX0WWxeu1VIReR1zsZLMc4fqpt223czR+Rpnrwu7pt46nbnC2ycO7ItI/uqDLJxnbcMC7FujKs9IfFA==}

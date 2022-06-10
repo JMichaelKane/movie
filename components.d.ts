@@ -12,6 +12,7 @@ declare module '@vue/runtime-core' {
     Header: typeof import('./src/components/Front/Header/Header.vue')['default']
     Home: typeof import('./src/components/Front/Home.vue')['default']
     HomeChild: typeof import('./src/components/Front/Home/HomeChild.vue')['default']
+    HomeMovie: typeof import('./src/components/User/panel/PanelHome/HomeMovie.vue')['default']
     ImgLazy: typeof import('./src/components/Front/SearchResult/imgLazy.vue')['default']
     Login: typeof import('./src/components/Login.vue')['default']
     Menu: typeof import('./src/components/User/Menu.vue')['default']
@@ -32,6 +33,8 @@ declare module '@vue/runtime-core' {
     NDialogProvider: typeof import('naive-ui')['NDialogProvider']
     NDropdown: typeof import('naive-ui')['NDropdown']
     NEllipsis: typeof import('naive-ui')['NEllipsis']
+    NForm: typeof import('naive-ui')['NForm']
+    NFormItem: typeof import('naive-ui')['NFormItem']
     NGrid: typeof import('naive-ui')['NGrid']
     NGridItem: typeof import('naive-ui')['NGridItem']
     NIcon: typeof import('naive-ui')['NIcon']
@@ -67,6 +70,7 @@ declare module '@vue/runtime-core' {
     Searcher: typeof import('./src/components/Front/Header/Searcher.vue')['default']
     SearchResult: typeof import('./src/components/Front/SearchResult/SearchResult.vue')['default']
     SearchTmp: typeof import('./src/components/Front/SearchResult/SearchTmp.vue')['default']
+    Setting: typeof import('./src/components/User/Setting/Setting.vue')['default']
     User: typeof import('./src/components/User.vue')['default']
   }
 }

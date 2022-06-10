@@ -1,16 +1,10 @@
 <script setup lang="ts">
-	import { Ref } from "vue";
 	import type { DataTableColumns } from "naive-ui";
-	import { Key } from "@vicons/ionicons5";
-	interface movie {
-		id: number;
-		name: string;
-		description: string;
-		duration: string;
-		sourceID: number;
-		classID: number;
-	}
-	const columns = ref<DataTableColumns<movie>>([
+	import { NButton, NSpace } from "naive-ui";
+	import { AddCircleOutline, FlashOutline, RefreshCircleOutline } from "@vicons/ionicons5";
+	import { ShowOrEdit, Movie } from "../../../../composables/User/public";
+
+	const columns = ref<DataTableColumns<Movie>>([
 		{
 			title: "ID",
 			key: "id",
@@ -23,18 +17,42 @@
 			width: "200px",
 			ellipsis: true,
 			align: "center",
+			render(row: Movie, index: number) {
+				return h(ShowOrEdit, {
+					value: row.name,
+					onUpdateValue(v: string) {
+						data.value[index].name = v;
+					},
+				});
+			},
 		},
 		{
 			title: "时长",
 			key: "duration",
 			width: "100px",
 			align: "center",
+			render(row: Movie, index: number) {
+				return h(ShowOrEdit, {
+					value: row.duration,
+					onUpdateValue(v: string) {
+						data.value[index].duration = v;
+					},
+				});
+			},
 		},
 		{
 			title: "简介",
 			key: "description",
 			ellipsis: true,
 			align: "center",
+			render(row: Movie, index: number) {
+				return h(ShowOrEdit, {
+					value: row.description,
+					onUpdateValue(v: string) {
+						data.value[index].description = v;
+					},
+				});
+			},
 		},
 		{
 			title: "资源库ID",
@@ -53,10 +71,29 @@
 			key: "action",
 			width: "150px",
 			align: "center",
+			render(row: Movie, index: number) {
+				return h(
+					NSpace,
+					{
+						justify: "center",
+					},
+
+					() =>
+						h(
+							NButton,
+							{
+								secondary: true,
+								type: "error",
+								size: "small",
+							},
+							() => "删除"
+						)
+				);
+			},
 		},
 	]);
 
-	const data = ref<movie[]>([
+	const data = ref<Movie[]>([
 		{
 			id: 1,
 			name: "八道楼子",
@@ -70,7 +107,32 @@
 </script>
 
 <template>
-	<n-data-table :columns="columns" :data="data" :bordered="false" :single-line="false" />
+	<n-card title="影片管理" size="small">
+		<template #header-extra>
+			<n-space>
+				<n-input placeholder="搜索" round>
+					<template #prefix>
+						<n-icon :component="FlashOutline" />
+					</template>
+				</n-input>
+				<div style="display: flex; align-items: center; height: 100%">
+					<n-button text type="primary" style="font-size: 24px">
+						<n-icon>
+							<add-circle-outline />
+						</n-icon>
+					</n-button>
+				</div>
+				<div style="display: flex; align-items: center; height: 100%">
+					<n-button text type="info" style="font-size: 24px">
+						<n-icon>
+							<refresh-circle-outline />
+						</n-icon>
+					</n-button>
+				</div>
+			</n-space>
+		</template>
+		<n-data-table :columns="columns" :data="data" :bordered="false" :single-line="false" />
+	</n-card>
 </template>
 
 <style></style>

@@ -1,115 +1,115 @@
+<script setup lang="ts">
+	import { h, ref } from "vue";
+	import { DataTableColumns, NButton, NSpace } from "naive-ui";
+	import { AddCircleOutline, FlashOutline, RefreshCircleOutline } from "@vicons/ionicons5";
+	import { ShowOrEdit, Source } from "../../../../composables/User/public";
+
+	const data = ref<Source[]>([
+		{
+			id: 1,
+			name: "卧龙",
+			url: "https://collect.wolongzyw.com/api.php/provide/vod/",
+			complete: false,
+		},
+	]);
+
+	const columns = ref<DataTableColumns<Source>>([
+		{
+			title: "ID",
+			key: "id",
+			width: 100,
+			align: "center",
+		},
+		{
+			title: "资源库名",
+			key: "name",
+			width: 150,
+			align: "center",
+			render(row: Source, index: number) {
+				return h(ShowOrEdit, {
+					value: row.name,
+					onUpdateValue(v: string) {
+						data.value[index].name = v;
+					},
+				});
+			},
+		},
+		{
+			title: "地址",
+			key: "url",
+			align: "center",
+			render(row: Source, index: number) {
+				return h(ShowOrEdit, {
+					value: row.url,
+					onUpdateValue(v: string) {
+						data.value[index].url = v;
+					},
+				});
+			},
+		},
+		{
+			title: "采集情况",
+			key: "complete",
+			align: "center",
+			width: 150,
+			render(row: Source, index: number) {
+				return h("div", row.complete ? "已完成" : "未完成");
+			},
+		},
+		{
+			title: "操作",
+			key: "action",
+			width: "150px",
+			align: "center",
+			render(row: Source, index: number) {
+				return h(
+					NSpace,
+					{
+						justify: "center",
+					},
+					() =>
+						h(
+							NButton,
+							{
+								secondary: true,
+								type: "error",
+								size: "small",
+							},
+							() => "删除"
+						)
+				);
+			},
+		},
+	]);
+</script>
+
 <template>
-	<n-data-table
-		:key="(row) => row.key"
-		:columns="columns"
-		:data="data"
-		:pagination="pagination"
-	/>
+	<n-card title="采集源" size="small">
+		<template #header-extra>
+			<n-space>
+				<n-input placeholder="搜索" round>
+					<template #prefix>
+						<n-icon :component="FlashOutline" />
+					</template>
+				</n-input>
+				<div style="display: flex; align-items: center; height: 100%">
+					<n-button text type="primary" style="font-size: 24px">
+						<n-icon>
+							<add-circle-outline />
+						</n-icon>
+					</n-button>
+				</div>
+				<div style="display: flex; align-items: center; height: 100%">
+					<n-button text type="info" style="font-size: 24px">
+						<n-icon>
+							<refresh-circle-outline />
+						</n-icon>
+					</n-button>
+				</div>
+			</n-space>
+		</template>
+		<n-data-table :columns="columns" :data="data" :bordered="false" :single-line="false" />
+	</n-card>
 </template>
 
-<script>
-	import { h, defineComponent, ref, nextTick } from "vue";
-	import { NInput } from "naive-ui";
-
-	const createData = () => [
-		{
-			key: 0,
-			name: "John Brown",
-			age: "32",
-			address: "New York No. 1 Lake Park",
-		},
-		{
-			key: 1,
-			name: "Jim Green",
-			age: "42",
-			address: "London No. 1 Lake Park",
-		},
-		{
-			key: 2,
-			name: "Joe Black",
-			age: "32",
-			address: "Sidney No. 1 Lake Park",
-		},
-	];
-
-	const ShowOrEdit = defineComponent({
-		props: {
-			value: [String, Number],
-			onUpdateValue: [Function, Array],
-		},
-		setup(props) {
-			const isEdit = ref(false);
-			const inputRef = ref(null);
-			const inputValue = ref(props.value);
-			function handleOnClick() {
-				isEdit.value = true;
-				nextTick(() => {
-					inputRef.value.focus();
-				});
-			}
-			function handleChange() {
-				props.onUpdateValue(inputValue.value);
-				isEdit.value = false;
-			}
-			return () =>
-				h(
-					"div",
-					{
-						onClick: handleOnClick,
-					},
-					isEdit.value
-						? h(NInput, {
-								ref: inputRef,
-								value: inputValue.value,
-								onUpdateValue: (v) => {
-									inputValue.value = v;
-								},
-								onChange: handleChange,
-								onBlur: handleChange,
-						  })
-						: props.value
-				);
-		},
-	});
-
-	export default defineComponent({
-		setup() {
-			const data = ref(createData());
-			return {
-				data,
-				columns: [
-					{
-						title: "Name",
-						key: "name",
-						width: 150,
-					},
-					{
-						title: "Age",
-						key: "age",
-						width: 100,
-						render(row, index) {
-							return h(ShowOrEdit, {
-								value: row.age,
-								onUpdateValue(v) {
-									data.value[index].age = v;
-								},
-							});
-						},
-					},
-					{
-						title: "Address",
-						key: "address",
-						render(row, index) {
-							return h(ShowOrEdit, {
-								value: row.address,
-								onUpdateValue(v) {
-									data.value[index].address = v;
-								},
-							});
-						},
-					},
-				],
-			};
-		},
-	});
-</script>
+<style></style>

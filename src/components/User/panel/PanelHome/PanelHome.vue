@@ -1,8 +1,10 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+	import { movieComponent } from "../../../../composables/User/panelHome";
+</script>
 
 <template>
-	<div class="panel-container">
-		<n-space>
+	<div class="">
+		<n-space justify="space-around" class="panel-container">
 			<div
 				class="text-white p-16px round-16px h-100px block-1 block-margin border-box w-20rem"
 				style="
@@ -37,6 +39,10 @@
 				</n-space>
 			</div>
 		</n-space>
+		<div style="height: 20px"></div>
+		<n-card title="近期影片" size="small">
+			<movieComponent />
+		</n-card>
 	</div>
 </template>
 
@@ -80,6 +86,6 @@
 		padding: 20px 15px 0 15px;
 	}
 	.w-20rem {
-		width: 20rem;
+		width: 30rem;
 	}
 </style>
