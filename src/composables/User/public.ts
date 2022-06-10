@@ -70,5 +70,12 @@ interface Source {
 	complete: boolean;
 }
 
+interface Class {
+	id: number;
+	name: string;
+	get: boolean;
+	categoryId: number;
+}
+
 export { ShowOrEdit };
-export type { Category, Movie, Source };
+export type { Category, Movie, Source, Class };
