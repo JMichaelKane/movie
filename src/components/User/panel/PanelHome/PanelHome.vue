@@ -1,7 +1,9 @@
 <script setup lang="ts">
-	import { movieComponent } from "../../../../composables/User/panelHome";
+	import { DataTableColumns } from "naive-ui";
+	import { movies as data } from "../../../../composables/User/data";
 	import { paths } from "../../../../composables/User/path";
-	import { moviesNum, sources, movies } from "../../../../composables/User/data";
+	import { moviesNum, sources } from "../../../../composables/User/data";
+	import { Movie } from "../../../../composables/User/public";
 	paths.value = [
 		{
 			name: "首页",
@@ -9,6 +11,34 @@
 			to: "",
 		},
 	];
+
+	const columns = ref<DataTableColumns<Movie>>([
+		{
+			title: "ID",
+			key: "id",
+			width: "100px",
+			align: "center",
+		},
+		{
+			title: "影片名",
+			key: "name",
+			width: "200px",
+			ellipsis: true,
+			align: "center",
+		},
+		{
+			title: "时长",
+			key: "duration",
+			width: "100px",
+			align: "center",
+		},
+		{
+			title: "简介",
+			key: "description",
+			ellipsis: true,
+			align: "center",
+		},
+	]);
 </script>
 
 <template>
@@ -50,7 +80,7 @@
 		</n-space>
 		<div style="height: 20px"></div>
 		<n-card title="近期影片" size="small">
-			<movieComponent />
+			<n-data-table :columns="columns" :data="data" :bordered="false" :single-line="false" />
 		</n-card>
 	</div>
 </template>

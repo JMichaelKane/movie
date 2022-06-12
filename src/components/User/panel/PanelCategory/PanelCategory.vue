@@ -1,9 +1,11 @@
 <script setup lang="ts">
-	import { DataTableColumns, NButton, NSpace } from "naive-ui";
+	import { DataTableColumns, NButton, NSpace, useNotification } from "naive-ui";
 	import { ShowOrEdit, Category } from "../../../../composables/User/public";
 	import { AddCircleOutline, FlashOutline, RefreshCircleOutline } from "@vicons/ionicons5";
 	import { paths } from "../../../../composables/User/path";
 	import { categories as data } from "../../../../composables/User/data";
+	// GetCategories
+	import { GetCategories, DelCategory } from "../../../../composables/User/api";
 	paths.value = [
 		{
 			name: "分类",
@@ -62,6 +64,15 @@
 								secondary: true,
 								type: "error",
 								size: "small",
+								onClick: () => {
+									DelCategory(row.id).then(() => {
+										GetCategories();
+										notification["success"]({
+											content: "恭喜你！",
+											meta: "操作成功",
+										});
+									});
+								},
 							},
 							() => "删除"
 						)
@@ -69,13 +80,14 @@
 			},
 		},
 	]);
+	const notification = useNotification(); // 通知
 </script>
 
 <template>
 	<n-card title="分类管理" size="small">
 		<template #header-extra>
 			<n-space>
-				<n-input placeholder="搜索" round>
+				<n-input placeholder="搜索" :disabled="true" round>
 					<template #prefix>
 						<n-icon :component="FlashOutline" />
 					</template>
@@ -88,7 +100,7 @@
 					</n-button>
 				</div>
 				<div style="display: flex; align-items: center; height: 100%">
-					<n-button text type="info" style="font-size: 24px">
+					<n-button text type="info" style="font-size: 24px" @click="GetCategories">
 						<n-icon>
 							<refresh-circle-outline />
 						</n-icon>

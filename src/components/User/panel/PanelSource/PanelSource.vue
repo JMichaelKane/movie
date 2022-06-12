@@ -1,10 +1,11 @@
 <script setup lang="ts">
 	import { h, ref } from "vue";
-	import { DataTableColumns, NButton, NSpace } from "naive-ui";
+	import { DataTableColumns, NButton, NSpace, useNotification } from "naive-ui";
 	import { AddCircleOutline, FlashOutline, RefreshCircleOutline } from "@vicons/ionicons5";
 	import { ShowOrEdit, Source } from "../../../../composables/User/public";
 	import { paths } from "../../../../composables/User/path";
 	import { sources as data } from "../../../../composables/User/data";
+	import { GetSources, DelSource } from "../../../../composables/User/api";
 
 	paths.value = [
 		{
@@ -84,6 +85,15 @@
 								secondary: true,
 								type: "error",
 								size: "small",
+								onClick: () => {
+									DelSource(row.id).then(() => {
+										GetSources();
+										notification["success"]({
+											content: "恭喜你！",
+											meta: "操作成功",
+										});
+									});
+								},
 							},
 							() => "删除"
 						),
@@ -92,13 +102,14 @@
 			},
 		},
 	]);
+	const notification = useNotification(); // 通知
 </script>
 
 <template>
 	<n-card title="采集源" size="small">
 		<template #header-extra>
 			<n-space>
-				<n-input placeholder="搜索" round>
+				<n-input placeholder="搜索" :disabled="true" round>
 					<template #prefix>
 						<n-icon :component="FlashOutline" />
 					</template>
@@ -111,7 +122,7 @@
 					</n-button>
 				</div>
 				<div style="display: flex; align-items: center; height: 100%">
-					<n-button text type="info" style="font-size: 24px">
+					<n-button text type="info" style="font-size: 24px" @click="GetSources()">
 						<n-icon>
 							<refresh-circle-outline />
 						</n-icon>

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 	import { watchPostEffect } from "vue";
 	import type { DataTableColumns } from "naive-ui";
-	import { NButton, NSpace } from "naive-ui";
+	import { NButton, NSpace, useNotification } from "naive-ui";
 	import { AddCircleOutline, FlashOutline, RefreshCircleOutline } from "@vicons/ionicons5";
 	import { ShowOrEdit, Movie, createDelayFunction } from "../../../../composables/User/public";
 	import { paths } from "../../../../composables/User/path";
-	import { GetMovies, GetMoviesByKeyword } from "../../../../composables/User/api";
+	import { GetMovies, GetMoviesByKeyword, DelMovie } from "../../../../composables/User/api";
 	paths.value = [
 		{
 			name: "影片",
@@ -89,6 +89,14 @@
 								secondary: true,
 								type: "error",
 								size: "small",
+								onClick: () => {
+									DelMovie(row.id).then(() => {
+										notification["success"]({
+											content: "恭喜你！",
+											meta: "操作成功",
+										});
+									});
+								},
 							},
 							() => "删除"
 						)
@@ -99,7 +107,9 @@
 
 	const data = ref<Movie[]>([]); // 存储查询到的movie
 	const keyword = ref<string>(""); // keyword
-	const search = createDelayFunction(GetMoviesByKeyword, 500);
+	const pg = ref<number>(0);
+
+	const search = createDelayFunction(GetMoviesByKeyword, 500); // 防抖函数
 	onMounted(() => {
 		GetMovies(20, 1, data);
 		watchPostEffect(() => {
@@ -109,6 +119,10 @@
 			}
 		});
 	});
+
+	const notification = useNotification(); // 通知
+
+	function refresh() {}
 </script>
 
 <template>

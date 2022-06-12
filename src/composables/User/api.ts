@@ -43,7 +43,7 @@ function GetMovies_panel() {
 	return GetMovies(20, 1, movies);
 }
 
-function GetMovies(num: number, pg: number, movies: Ref<Movie[]>) {
+function GetMovies(num: number, pg: number, movies: Ref<Movie[]>, pgCount?: Ref<number>) {
 	return baseFetch("/user/list", {
 		method: "POST",
 		handle: true,
@@ -62,6 +62,10 @@ function GetMovies(num: number, pg: number, movies: Ref<Movie[]>) {
 				director: key.director,
 			};
 			movies.value.push(movie);
+		}
+		// console.log(typeof pgCount);
+		if (typeof pgCount != "undefined") {
+			pgCount.value = data.pgCount;
 		}
 	});
 }
@@ -96,6 +100,7 @@ function GetSources() {
 		handle: true,
 		body: {},
 	}).then((data: any) => {
+		sources.value = [];
 		for (const key of data) {
 			let source: Source = {
 				id: key.id,
@@ -115,6 +120,7 @@ function GetCategories() {
 		handle: true,
 		body: {},
 	}).then((data: any) => {
+		categories.value = [];
 		for (const key of data) {
 			let category: Category = {
 				id: key.id,
@@ -128,12 +134,45 @@ function GetCategories() {
 	});
 }
 
-function getCategoryMvNum() {
-	// baseFetch("/user/category/all", {
-	// 	method: "GET",
-	// 	handle: true,
-	// 	body: {},
-	// });
+function DelMovie(id: number) {
+	return baseFetch("/user/del", {
+		method: "POST",
+		handle: false,
+		body: {
+			id: id,
+		},
+	});
 }
 
-export { Login, GetMovieNum, global, GetMovies, GetMoviesByKeyword };
+function DelCategory(id: number) {
+	return baseFetch("/user/category/del", {
+		method: "POST",
+		handle: false,
+		body: {
+			id: id,
+		},
+	});
+}
+
+function DelSource(id: number) {
+	return baseFetch("/user/source/del", {
+		method: "POST",
+		handle: false,
+		body: {
+			id: id,
+		},
+	});
+}
+
+export {
+	Login,
+	GetMovieNum,
+	global,
+	GetMovies,
+	GetMoviesByKeyword,
+	GetSources,
+	GetCategories,
+	DelMovie,
+	DelCategory,
+	DelSource,
+};
