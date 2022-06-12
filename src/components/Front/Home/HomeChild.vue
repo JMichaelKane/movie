@@ -18,7 +18,7 @@
 	}); //动漫
 	onMounted(() => {
 		Get(
-			base_url + "category/1",
+			base_url + "/category/1",
 			{
 				num: 12,
 				pg: 1,
@@ -26,7 +26,7 @@
 			movies1
 		);
 		Get(
-			base_url + "category/3",
+			base_url + "/category/3",
 			{
 				num: 12,
 				pg: 1,
@@ -34,7 +34,7 @@
 			movies2
 		);
 		Get(
-			base_url + "category/2",
+			base_url + "/category/2",
 			{
 				num: 12,
 				pg: 1,

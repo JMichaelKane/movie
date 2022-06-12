@@ -59,8 +59,7 @@ interface Movie {
 	name: string;
 	description: string;
 	duration: string;
-	sourceID: number;
-	classID: number;
+	director: string;
 }
 
 interface Source {
@@ -77,5 +76,17 @@ interface Class {
 	categoryId: number;
 }
 
-export { ShowOrEdit };
+//以下是本站搜索功能所使用的的防抖函数，和上面略有不同
+function createDelayFunction(fn: Function, timeout = 400) {
+	let timeoutId = -1;
+	return (...args: any) => {
+		console.log(args);
+		clearTimeout(timeoutId);
+		timeoutId = setTimeout(() => {
+			fn(...args);
+		}, timeout);
+	};
+}
+
+export { ShowOrEdit, createDelayFunction };
 export type { Category, Movie, Source, Class };

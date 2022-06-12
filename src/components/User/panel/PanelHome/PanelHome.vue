@@ -1,5 +1,14 @@
 <script setup lang="ts">
 	import { movieComponent } from "../../../../composables/User/panelHome";
+	import { paths } from "../../../../composables/User/path";
+	import { moviesNum, sources, movies } from "../../../../composables/User/data";
+	paths.value = [
+		{
+			name: "首页",
+			params: null,
+			to: "",
+		},
+	];
 </script>
 
 <template>
@@ -17,7 +26,7 @@
 			>
 				<div class="text-16px">资源库</div>
 				<n-space>
-					<span class="text-30px text-white">1,000,000</span>
+					<span class="text-30px text-white">{{ sources.length }}</span>
 				</n-space>
 			</div>
 
@@ -26,7 +35,7 @@
 			>
 				<div class="text-16px">影片量</div>
 				<n-space>
-					<span class="text-30px text-white">1,000,000</span>
+					<span class="text-30px text-white">{{ moviesNum }}</span>
 				</n-space>
 			</div>
 
@@ -35,7 +44,7 @@
 			>
 				<div class="text-16px">访问量</div>
 				<n-space>
-					<span class="text-30px text-white">1,000,000</span>
+					<span class="text-30px text-white">236975</span>
 				</n-space>
 			</div>
 		</n-space>

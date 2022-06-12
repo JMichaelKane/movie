@@ -1,4 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+	import { global } from "../composables/User/api";
+	global();
+</script>
 
 <template>
 	<div>

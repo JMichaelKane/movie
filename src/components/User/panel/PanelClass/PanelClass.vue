@@ -33,8 +33,6 @@
 			align: "center",
 			render(row: Class, index: number) {
 				return h(NSwitch, {
-					// disabled: row.get,
-					// value: data.value[index].get,
 					value: row.get,
 					onUpdateValue: (value: boolean) => {
 						row.get = value;

@@ -15,7 +15,7 @@
 	onMounted(() => {
 		watchPostEffect(() => {
 			Get(
-				base_url + "search",
+				base_url + "/search",
 				{
 					keyword: route.params.keyword,
 					pg: page.value,

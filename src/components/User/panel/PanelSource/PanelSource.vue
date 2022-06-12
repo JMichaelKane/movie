@@ -3,15 +3,16 @@
 	import { DataTableColumns, NButton, NSpace } from "naive-ui";
 	import { AddCircleOutline, FlashOutline, RefreshCircleOutline } from "@vicons/ionicons5";
 	import { ShowOrEdit, Source } from "../../../../composables/User/public";
+	import { paths } from "../../../../composables/User/path";
+	import { sources as data } from "../../../../composables/User/data";
 
-	const data = ref<Source[]>([
+	paths.value = [
 		{
-			id: 1,
-			name: "卧龙",
-			url: "https://collect.wolongzyw.com/api.php/provide/vod/",
-			complete: false,
+			name: "采集源",
+			params: null,
+			to: "",
 		},
-	]);
+	];
 
 	const columns = ref<DataTableColumns<Source>>([
 		{
@@ -59,7 +60,7 @@
 		{
 			title: "操作",
 			key: "action",
-			width: "150px",
+			width: "200px",
 			align: "center",
 			render(row: Source, index: number) {
 				return h(
@@ -67,7 +68,16 @@
 					{
 						justify: "center",
 					},
-					() =>
+					() => [
+						h(
+							NButton,
+							{
+								secondary: true,
+								type: "info",
+								size: "small",
+							},
+							() => "重新采集"
+						),
 						h(
 							NButton,
 							{
@@ -76,7 +86,8 @@
 								size: "small",
 							},
 							() => "删除"
-						)
+						),
+					]
 				);
 			},
 		},

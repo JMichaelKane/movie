@@ -11,7 +11,6 @@
     "@types/dplayer": "^1.25.2",
     "@types/qs": "^6.9.7",
     "@vicons/ionicons5": "^0.12.0",
-    "axios": "^0.27.2",
     "dplayer": "^1.26.0",
     "hls.js": "^1.1.5",
     "qs": "^6.10.5",

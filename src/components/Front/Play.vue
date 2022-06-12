@@ -12,7 +12,7 @@
 	}); //定义movie信息获取
 	const url = ref(); //定义播放链接
 	onBeforeMount(() => {
-		fetch(base_url + "play/" + route.params.id)
+		fetch(base_url + "/play/" + route.params.id)
 			.then((response) => response.json())
 			.then((data) => {
 				movie.value = data;

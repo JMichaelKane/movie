@@ -1,7 +1,12 @@
 <script setup lang="ts">
+	import { NButton } from "naive-ui";
 	import headimg from "/svg/head-img.svg";
-
+	import { paths } from "../../../composables/User/path";
 	const options = ref([
+		{
+			label: "前台首页",
+			key: "front",
+		},
 		{
 			label: "系统设置",
 			key: "config",
@@ -11,18 +16,29 @@
 			key: "logout",
 		},
 	]);
+
+	function handleSelect(key: string | number) {
+		switch (key) {
+			case "front":
+				window.open(window.location.protocol + "//" + window.location.host);
+				break;
+
+			default:
+				break;
+		}
+	}
 </script>
 
 <template>
 	<div class="panel-header">
 		<n-space class="space" justify="space-between">
 			<div class="breadcrumb">
-				<n-breadcrumb>
-					<n-breadcrumb-item> 首页</n-breadcrumb-item>
-					<n-breadcrumb-item> 仪表盘</n-breadcrumb-item>
+				<n-breadcrumb separator=">">
+					<n-breadcrumb-item :clickable="false"> 系统</n-breadcrumb-item>
+					<n-breadcrumb-item v-for="path in paths"> {{ path.name }}</n-breadcrumb-item>
 				</n-breadcrumb>
 			</div>
-			<n-dropdown trigger="hover" :options="options">
+			<n-dropdown trigger="hover" :options="options" @select="handleSelect">
 				<div class="head-image">
 					<n-avatar size="medium" :src="headimg" round />
 					<span class="admin">Admin</span>

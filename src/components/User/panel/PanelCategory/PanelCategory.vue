@@ -2,7 +2,15 @@
 	import { DataTableColumns, NButton, NSpace } from "naive-ui";
 	import { ShowOrEdit, Category } from "../../../../composables/User/public";
 	import { AddCircleOutline, FlashOutline, RefreshCircleOutline } from "@vicons/ionicons5";
-
+	import { paths } from "../../../../composables/User/path";
+	import { categories as data } from "../../../../composables/User/data";
+	paths.value = [
+		{
+			name: "分类",
+			params: null,
+			to: "",
+		},
+	];
 	const columns = ref<DataTableColumns<Category>>([
 		{
 			title: "ID",
@@ -59,15 +67,6 @@
 						)
 				);
 			},
-		},
-	]);
-
-	const data = ref<Category[]>([
-		{
-			id: 1,
-			name: "动作片",
-			classNum: 10,
-			movieNum: 200,
 		},
 	]);
 </script>

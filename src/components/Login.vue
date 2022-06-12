@@ -1,24 +1,24 @@
 <script setup lang="ts">
-	import QS from "qs";
-	import { base_url } from "../composables/base";
+	// import { useRouter } from "vue-router";
+	// import { baseFetch } from "../composables/User/http";
+	import { Login } from "../composables/User/api";
 	const loading = ref<boolean>(false);
 	const account = ref<string>("");
 	const password = ref<string>("");
+	// const router = useRouter(); // 路由
 	function handleClick() {
 		loading.value = true;
-		// console.log(account.value, password.value);
-		fetch(base_url + "user/login", {
-			method: "POST",
-			mode: "cors",
-			cache: "no-cache",
-			headers: {
-				"Content-Type": "application/x-www-form-urlencoded",
-			},
-			body: QS.stringify({
-				account: account.value,
-				password: password.value,
-			}),
-		});
+		Login(account.value, password.value);
+		// baseFetch("/user/login", {
+		// 	method: "POST",
+		// 	handle: false,
+		// 	body: {
+		// 		account: account.value,
+		// 		password: password.value,
+		// 	},
+		// }).then(() => {
+		// 	router.push({ name: "panel" });
+		// });
 	}
 </script>
 

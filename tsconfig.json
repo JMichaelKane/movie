@@ -1,8 +1,8 @@
 {
   //缓兵之计
-  "vueCompilerOptions": {
-    "experimentalSuppressInvalidJsxElementTypeErrors": true
-  },
+  // "vueCompilerOptions": {
+  //   "experimentalSuppressInvalidJsxElementTypeErrors": true
+  // },
   "compilerOptions": {
     "target": "esnext",
     "useDefineForClassFields": true,
