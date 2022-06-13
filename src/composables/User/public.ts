@@ -68,6 +68,7 @@ interface Source {
 	name: string;
 	url: string;
 	complete: boolean;
+	getting: boolean;
 	create?: boolean;
 }
 

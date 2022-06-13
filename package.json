@@ -15,18 +15,18 @@
     "hls.js": "^1.1.5",
     "qs": "^6.10.5",
     "vue": "^3.2.37",
-    "vue-router": "^4.0.15"
+    "vue-router": "^4.0.16"
   },
   "devDependencies": {
     "@types/hls.js": "^1.0.0",
     "@vicons/fluent": "^0.12.0",
     "@vitejs/plugin-vue": "^2.3.3",
-    "naive-ui": "^2.30.2",
+    "naive-ui": "^2.30.3",
     "typescript": "^4.7.3",
     "unplugin-auto-import": "^0.7.2",
     "unplugin-vue-components": "^0.19.6",
     "vfonts": "^0.0.3",
-    "vite": "^2.9.10",
+    "vite": "^2.9.12",
     "vue-tsc": "^0.34.17"
   }
 }

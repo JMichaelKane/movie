@@ -1,7 +1,11 @@
 <script setup lang="ts">
-	import { NButton } from "naive-ui";
+	import { useRouter } from "vue-router";
 	import headimg from "/svg/head-img.svg";
 	import { paths } from "../../../composables/User/path";
+	import { LogOut } from "../../../composables/User/api";
+
+	const router = useRouter();
+
 	const options = ref([
 		{
 			label: "前台首页",
@@ -9,7 +13,7 @@
 		},
 		{
 			label: "系统设置",
-			key: "config",
+			key: "setting",
 		},
 		{
 			label: "登出账户",
@@ -22,6 +26,17 @@
 			case "front":
 				window.open(window.location.protocol + "//" + window.location.host);
 				break;
+			case "setting":
+				router.push({
+					name: "setting",
+				});
+				break;
+			case "logout":
+				LogOut().then(() => {
+					router.push({
+						name: "login",
+					});
+				});
 
 			default:
 				break;

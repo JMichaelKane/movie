@@ -2,7 +2,7 @@
 
 <template>
 	<div class="l-header">
-		<span class="title">GoMovie后台管理</span>
+		<router-link to="/user/panel"><span class="title">GoMovie后台管理</span></router-link>
 	</div>
 </template>
 

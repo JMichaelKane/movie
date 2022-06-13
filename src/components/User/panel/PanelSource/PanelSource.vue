@@ -1,11 +1,16 @@
 <script setup lang="ts">
 	import { h, ref } from "vue";
-	import { DataTableColumns, NButton, NSpace, useNotification } from "naive-ui";
+	import { DataTableColumns, NButton, NSpace, useNotification, NSwitch } from "naive-ui";
 	import { AddCircleOutline, FlashOutline, RefreshCircleOutline } from "@vicons/ionicons5";
 	import { ShowOrEdit, Source } from "../../../../composables/User/public";
 	import { paths } from "../../../../composables/User/path";
 	import { sources as data } from "../../../../composables/User/data";
-	import { GetSources, DelSource, CreateSource } from "../../../../composables/User/api";
+	import {
+		GetSources,
+		DelSource,
+		CreateSource,
+		HandleGetting,
+	} from "../../../../composables/User/api";
 
 	paths.value = [
 		{
@@ -50,12 +55,28 @@
 			},
 		},
 		{
-			title: "采集情况",
+			title: "采集进度",
 			key: "complete",
 			align: "center",
-			width: 150,
+			width: 100,
 			render(row: Source, index: number) {
 				return h("div", row.complete ? "已完成" : "未完成");
+			},
+		},
+		{
+			title: "采集情况",
+			key: "getting",
+			align: "center",
+			width: 100,
+			render(row: Source, index: number) {
+				return h(NSwitch, {
+					value: row.getting,
+					onUpdateValue: (value: boolean) => {
+						HandleGetting(row.id, row.getting).then(() => {
+							row.getting = !row.getting;
+						});
+					},
+				});
 			},
 		},
 		{
@@ -133,6 +154,7 @@
 			id: 0,
 			name: "新建采集源",
 			url: "待添加",
+			getting: false,
 			complete: false,
 			create: true,
 		});

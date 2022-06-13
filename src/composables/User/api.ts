@@ -32,6 +32,14 @@ function Login(account: string, password: string) {
 	});
 }
 
+function LogOut() {
+	return baseFetch("/user/logout", {
+		method: "GET",
+		handle: false,
+		body: {},
+	});
+}
+
 function GetMovieNum() {
 	return baseFetch("/user/count", {
 		method: "GET",
@@ -108,6 +116,7 @@ function GetSources() {
 			let source: Source = {
 				id: key.id,
 				name: key.name,
+				getting: key.get,
 				complete: key.ok,
 				url: key.url,
 				create: false,
@@ -189,8 +198,38 @@ function CreateSource(name: string, url: string) {
 	});
 }
 
+function HandleGetting(id: number, getting: boolean) {
+	let path: string = getting ? "/user/stop/" + id : "/user/start/" + id;
+	return baseFetch(path, {
+		method: "GET",
+		handle: false,
+		body: {},
+	});
+}
+
+function UpdateAccount(account: string) {
+	return baseFetch("/user/updateAccount", {
+		method: "POST",
+		handle: false,
+		body: {
+			account: account,
+		},
+	});
+}
+
+function UpdatePassword(password: string) {
+	return baseFetch("/user/updatePassword", {
+		method: "POST",
+		handle: false,
+		body: {
+			password: password,
+		},
+	});
+}
+
 export {
 	Login,
+	LogOut,
 	GetMovieNum,
 	global,
 	GetMovies,
@@ -202,4 +241,7 @@ export {
 	DelSource,
 	CreateCategory,
 	CreateSource,
+	HandleGetting,
+	UpdateAccount,
+	UpdatePassword,
 };

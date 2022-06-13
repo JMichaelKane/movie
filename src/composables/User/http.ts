@@ -86,9 +86,15 @@ function baseFetch(url: string, options: Option) {
 					if (!/^(2|3)\d{2}$/.test(String(res.status) /* 数字转字符串 */)) {
 						switch (res.status) {
 							case 401: //当前用户需要验证（一般是未登陆）
+								window.$notification["warning"]({
+									duration: 2000,
+									content: "警告",
+									meta: "未登录，请先登录！",
+								});
 								router.push({ name: "login" });
 								break; //一般可以弹出遮盖层，或者回到登陆页面
 							case 403: // 服务器理解请求，但是拒绝执行，一般是token，session过期
+								console.log("登录错误");
 								break;
 							case 404: // 找不到页面(请求失败，资源在服务器上未找到)，可以给一个友好的提示
 								break;

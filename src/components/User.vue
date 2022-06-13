@@ -1,6 +1,10 @@
 <script setup lang="ts">
+	import { useNotification } from "naive-ui";
 	import { global } from "../composables/User/api";
-	global();
+	window.$notification = useNotification();
+	onBeforeMount(() => {
+		global();
+	});
 </script>
 
 <template>
