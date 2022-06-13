@@ -1,15 +1,17 @@
 import router from "../../router/router";
 import { Ref } from "vue";
 import { baseFetch } from "./http";
-import { sources, moviesNum, categories, movies } from "./data";
+import { sources, moviesNum, categories, movies, LogInEd } from "./data";
 import { Source, Category, Movie } from "./public";
 
 function global() {
-	GetMovieNum().then(() => {
-		GetSources();
-		GetCategories();
-		GetMovies_panel();
-	});
+	if (!LogInEd.value) {
+		GetMovieNum().then(() => {
+			GetSources();
+			GetCategories();
+			GetMovies_panel();
+		});
+	}
 }
 
 function Login(account: string, password: string) {
@@ -25,6 +27,7 @@ function Login(account: string, password: string) {
 		await GetSources();
 		await GetCategories();
 		await GetMovies_panel();
+		LogInEd.value = true;
 		router.push({ name: "panel" });
 	});
 }
@@ -107,6 +110,7 @@ function GetSources() {
 				name: key.name,
 				complete: key.ok,
 				url: key.url,
+				create: false,
 			};
 			sources.value.push(source);
 		}
@@ -127,10 +131,10 @@ function GetCategories() {
 				name: key.name,
 				classNum: key.classNum,
 				movieNum: key.movieNum,
+				create: false,
 			};
 			categories.value.push(category);
 		}
-		// console.log(data);
 	});
 }
 
@@ -164,6 +168,27 @@ function DelSource(id: number) {
 	});
 }
 
+function CreateCategory(name: string) {
+	return baseFetch("/user/category/add", {
+		method: "POST",
+		handle: false,
+		body: {
+			name: name,
+		},
+	});
+}
+
+function CreateSource(name: string, url: string) {
+	return baseFetch("/user/source/add", {
+		method: "POST",
+		handle: false,
+		body: {
+			name: name,
+			url: url,
+		},
+	});
+}
+
 export {
 	Login,
 	GetMovieNum,
@@ -175,4 +200,6 @@ export {
 	DelMovie,
 	DelCategory,
 	DelSource,
+	CreateCategory,
+	CreateSource,
 };
