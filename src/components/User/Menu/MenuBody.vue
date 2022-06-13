@@ -72,21 +72,21 @@
 			key: "movie-management",
 			icon: renderIcon(MoviesAndTv20Regular),
 		},
-		{
-			label: "卧龙",
-			key: "wolong",
-			children: [
-				{
-					label: "采集类",
-					key: "wolong-caiji",
-				},
-				{
-					label: "影片",
-					key: "wolong-movie",
-				},
-			],
-			icon: renderIcon(AppsList20Regular),
-		},
+		// {
+		// 	label: "卧龙",
+		// 	key: "wolong",
+		// 	children: [
+		// 		{
+		// 			label: "采集类",
+		// 			key: "wolong-caiji",
+		// 		},
+		// 		{
+		// 			label: "影片",
+		// 			key: "wolong-movie",
+		// 		},
+		// 	],
+		// 	icon: renderIcon(AppsList20Regular),
+		// },
 	];
 	const activeKey = ref<string | null>(null);
 	const collapsed = ref(false);

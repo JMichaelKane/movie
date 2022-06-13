@@ -4,8 +4,8 @@
 	import { AddCircleOutline, FlashOutline, RefreshCircleOutline } from "@vicons/ionicons5";
 	import { paths } from "../../../../composables/User/path";
 	import { categories as data } from "../../../../composables/User/data";
-	// GetCategories
-	import { GetCategories, DelCategory } from "../../../../composables/User/api";
+	import { GetCategories, DelCategory, CreateCategory } from "../../../../composables/User/api";
+
 	paths.value = [
 		{
 			name: "分类",
@@ -57,7 +57,28 @@
 						justify: "center",
 					},
 
-					() =>
+					() => [
+						row.create
+							? h(
+									NButton,
+									{
+										secondary: true,
+										type: "info",
+										size: "small",
+										onClick: () => {
+											CreateCategory(row.name).then(() => {
+												GetCategories();
+												notification["success"]({
+													duration: 2000,
+													content: "保存",
+													meta: "操作成功",
+												});
+											});
+										},
+									},
+									() => "保存"
+							  )
+							: null,
 						h(
 							NButton,
 							{
@@ -68,19 +89,30 @@
 									DelCategory(row.id).then(() => {
 										GetCategories();
 										notification["success"]({
-											content: "恭喜你！",
+											duration: 2000,
+											content: "删除",
 											meta: "操作成功",
 										});
 									});
 								},
 							},
 							() => "删除"
-						)
+						),
+					]
 				);
 			},
 		},
 	]);
 	const notification = useNotification(); // 通知
+	function addCategory() {
+		data.value.push({
+			id: 0,
+			name: "待保存分类",
+			classNum: 0,
+			movieNum: 0,
+			create: true,
+		});
+	}
 </script>
 
 <template>
@@ -93,14 +125,14 @@
 					</template>
 				</n-input>
 				<div style="display: flex; align-items: center; height: 100%">
-					<n-button text type="primary" style="font-size: 24px">
+					<n-button text type="primary" style="font-size: 24px" @click="addCategory()">
 						<n-icon>
 							<add-circle-outline />
 						</n-icon>
 					</n-button>
 				</div>
 				<div style="display: flex; align-items: center; height: 100%">
-					<n-button text type="info" style="font-size: 24px" @click="GetCategories">
+					<n-button text type="info" style="font-size: 24px" @click="GetCategories()">
 						<n-icon>
 							<refresh-circle-outline />
 						</n-icon>

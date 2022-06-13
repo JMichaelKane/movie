@@ -5,7 +5,7 @@
 	import { ShowOrEdit, Source } from "../../../../composables/User/public";
 	import { paths } from "../../../../composables/User/path";
 	import { sources as data } from "../../../../composables/User/data";
-	import { GetSources, DelSource } from "../../../../composables/User/api";
+	import { GetSources, DelSource, CreateSource } from "../../../../composables/User/api";
 
 	paths.value = [
 		{
@@ -61,7 +61,7 @@
 		{
 			title: "操作",
 			key: "action",
-			width: "200px",
+			width: "300px",
 			align: "center",
 			render(row: Source, index: number) {
 				return h(
@@ -79,30 +79,64 @@
 							},
 							() => "重新采集"
 						),
-						h(
-							NButton,
-							{
-								secondary: true,
-								type: "error",
-								size: "small",
-								onClick: () => {
-									DelSource(row.id).then(() => {
-										GetSources();
-										notification["success"]({
-											content: "恭喜你！",
-											meta: "操作成功",
+						[
+							row.create
+								? h(
+										NButton,
+										{
+											secondary: true,
+											type: "info",
+											size: "small",
+											onClick: () => {
+												CreateSource(row.name, row.url).then(() => {
+													GetSources();
+													notification["success"]({
+														duration: 2000,
+														content: "保存",
+														meta: "操作成功",
+													});
+												});
+											},
+										},
+										() => "保存"
+								  )
+								: null,
+							,
+							h(
+								NButton,
+								{
+									secondary: true,
+									type: "error",
+									size: "small",
+									onClick: () => {
+										DelSource(row.id).then(() => {
+											GetSources();
+											notification["success"]({
+												duration: 2000,
+												content: "删除",
+												meta: "操作成功",
+											});
 										});
-									});
+									},
 								},
-							},
-							() => "删除"
-						),
+								() => "删除"
+							),
+						],
 					]
 				);
 			},
 		},
 	]);
 	const notification = useNotification(); // 通知
+	function addSource() {
+		data.value.push({
+			id: 0,
+			name: "新建采集源",
+			url: "待添加",
+			complete: false,
+			create: true,
+		});
+	}
 </script>
 
 <template>
@@ -115,7 +149,7 @@
 					</template>
 				</n-input>
 				<div style="display: flex; align-items: center; height: 100%">
-					<n-button text type="primary" style="font-size: 24px">
+					<n-button text type="primary" style="font-size: 24px" @click="addSource()">
 						<n-icon>
 							<add-circle-outline />
 						</n-icon>

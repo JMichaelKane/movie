@@ -91,8 +91,10 @@
 								size: "small",
 								onClick: () => {
 									DelMovie(row.id).then(() => {
+										refresh();
 										notification["success"]({
-											content: "恭喜你！",
+											duration: 2000,
+											content: "删除",
 											meta: "操作成功",
 										});
 									});
@@ -122,7 +124,13 @@
 
 	const notification = useNotification(); // 通知
 
-	function refresh() {}
+	function refresh() {
+		if (keyword.value.trim() != "") {
+			search(keyword.value, 20, 1, data);
+		} else {
+			GetMovies(20, 1, data);
+		}
+	}
 </script>
 
 <template>
@@ -135,14 +143,14 @@
 					</template>
 				</n-input>
 				<div style="display: flex; align-items: center; height: 100%">
-					<n-button text type="primary" style="font-size: 24px">
+					<n-button text type="primary" style="font-size: 24px" disabled>
 						<n-icon>
 							<add-circle-outline />
 						</n-icon>
 					</n-button>
 				</div>
 				<div style="display: flex; align-items: center; height: 100%">
-					<n-button text type="info" style="font-size: 24px">
+					<n-button text type="info" style="font-size: 24px" @click="refresh">
 						<n-icon>
 							<refresh-circle-outline />
 						</n-icon>
