@@ -52,6 +52,7 @@ interface Category {
 	name: string;
 	classNum: number;
 	movieNum: number;
+	create?: boolean;
 }
 
 interface Movie {
@@ -67,6 +68,7 @@ interface Source {
 	name: string;
 	url: string;
 	complete: boolean;
+	create?: boolean;
 }
 
 interface Class {
