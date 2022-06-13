@@ -1,6 +1,6 @@
 <script setup lang="ts">
 	import { useRouter } from "vue-router";
-	import headimg from "/svg/head-img.svg";
+	import headimg from "../../../assets/svg/head-img.svg";
 	import { paths } from "../../../composables/User/path";
 	import { LogOut } from "../../../composables/User/api";
 
