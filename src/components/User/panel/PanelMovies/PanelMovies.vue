@@ -171,9 +171,11 @@
 			</n-space>
 		</template>
 		<n-data-table :columns="columns" :data="data" :bordered="false" :single-line="false" />
-		<n-space justify="center">
-			<n-pagination v-model:page="page" :page-count="pgCount" />
-		</n-space>
+		<div style="margin-top: 15px; margin-bottom: 10px">
+			<n-space justify="center">
+				<n-pagination v-model:page="page" :page-count="pgCount" />
+			</n-space>
+		</div>
 	</n-card>
 </template>
 
