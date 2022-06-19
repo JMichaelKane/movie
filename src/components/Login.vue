@@ -9,16 +9,6 @@
 	function handleClick() {
 		loading.value = true;
 		Login(account.value, password.value);
-		// baseFetch("/user/login", {
-		// 	method: "POST",
-		// 	handle: false,
-		// 	body: {
-		// 		account: account.value,
-		// 		password: password.value,
-		// 	},
-		// }).then(() => {
-		// 	router.push({ name: "panel" });
-		// });
 	}
 </script>
 
