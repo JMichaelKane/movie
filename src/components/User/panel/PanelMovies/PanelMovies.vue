@@ -106,18 +106,30 @@
 			},
 		},
 	]);
-
+	const num: number = 20;
 	const data = ref<Movie[]>([]); // 存储查询到的movie
 	const keyword = ref<string>(""); // keyword
-	const pg = ref<number>(0);
+	const page = ref<number>(1);
+	const pgCount = ref<number>(1);
+
+	function getMovies() {
+		if (keyword.value.trim() == "") {
+			GetMovies(num, page.value, data, pgCount);
+		} else {
+			search(keyword.value, num, page.value, data, pgCount);
+		}
+	}
 
 	const search = createDelayFunction(GetMoviesByKeyword, 500); // 防抖函数
+
 	onMounted(() => {
-		GetMovies(20, 1, data);
 		watchPostEffect(() => {
-			if (keyword.value != "") {
-				console.log(keyword.value);
-				search(keyword.value, 20, 1, data);
+			if (keyword.value.trim() != "") {
+				// console.log("触发关键字查询");
+				search(keyword.value, num, page.value, data, pgCount);
+			} else {
+				// console.log("触发查询");
+				GetMovies(num, page.value, data, pgCount);
 			}
 		});
 	});
@@ -126,9 +138,9 @@
 
 	function refresh() {
 		if (keyword.value.trim() != "") {
-			search(keyword.value, 20, 1, data);
+			search(keyword.value, 20, page.value, data, pgCount);
 		} else {
-			GetMovies(20, 1, data);
+			GetMovies(20, page.value, data, pgCount);
 		}
 	}
 </script>
@@ -159,6 +171,9 @@
 			</n-space>
 		</template>
 		<n-data-table :columns="columns" :data="data" :bordered="false" :single-line="false" />
+		<n-space justify="center">
+			<n-pagination v-model:page="page" :page-count="pgCount" />
+		</n-space>
 	</n-card>
 </template>
 

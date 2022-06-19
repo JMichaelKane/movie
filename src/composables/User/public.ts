@@ -76,14 +76,13 @@ interface Class {
 	id: number;
 	name: string;
 	get: boolean;
-	categoryId: number;
+	categoryId?: number;
 }
 
 //以下是本站搜索功能所使用的的防抖函数，和上面略有不同
 function createDelayFunction(fn: Function, timeout = 400) {
 	let timeoutId = -1;
 	return (...args: any) => {
-		console.log(args);
 		clearTimeout(timeoutId);
 		timeoutId = setTimeout(() => {
 			fn(...args);

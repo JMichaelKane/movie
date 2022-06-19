@@ -12,4 +12,6 @@ const movies = ref<Movie[]>([]); //影片
 
 const moviesNum = ref<number>(0); //影片数目
 
-export { sources, moviesNum, categories, movies, LogInEd };
+const sourceDetail = new Map();
+
+export { sources, moviesNum, categories, movies, sourceDetail, LogInEd };

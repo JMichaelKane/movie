@@ -1,8 +1,8 @@
 import router from "../../router/router";
 import { Ref } from "vue";
 import { baseFetch } from "./http";
-import { sources, moviesNum, categories, movies, LogInEd } from "./data";
-import { Source, Category, Movie } from "./public";
+import { sources, moviesNum, categories, movies, LogInEd, sourceDetail } from "./data";
+import { Source, Category, Movie, Class } from "./public";
 
 function global() {
 	if (!LogInEd.value) {
@@ -81,7 +81,13 @@ function GetMovies(num: number, pg: number, movies: Ref<Movie[]>, pgCount?: Ref<
 	});
 }
 
-function GetMoviesByKeyword(keyword: string, num: number, pg: number, movies: Ref<Movie[]>) {
+function GetMoviesByKeyword(
+	keyword: string,
+	num: number,
+	pg: number,
+	movies: Ref<Movie[]>,
+	pgCount?: Ref<number>
+) {
 	baseFetch("/user/search", {
 		method: "POST",
 		handle: true,
@@ -101,6 +107,9 @@ function GetMoviesByKeyword(keyword: string, num: number, pg: number, movies: Re
 				director: key.director,
 			};
 			movies.value.push(movie);
+		}
+		if (typeof pgCount != "undefined") {
+			pgCount.value = data.pgCount;
 		}
 	});
 }
@@ -122,6 +131,7 @@ function GetSources() {
 				create: false,
 			};
 			sources.value.push(source);
+			getSourceDetail(key.id); // 获取每个分类的采集类信息
 		}
 		// console.log(data);
 	});
@@ -226,6 +236,27 @@ function UpdatePassword(password: string) {
 		body: {
 			password: password,
 		},
+	});
+}
+
+function UpdateSourceName(name: string) {
+	// 未写完
+	return baseFetch("/user/updateName", {
+		method: "POST",
+		handle: false,
+		body: {
+			name: name,
+		},
+	});
+}
+
+function getSourceDetail(id: number) {
+	return baseFetch("/user/source/all_class/" + String(id), {
+		method: "GET",
+		handle: true,
+		body: {},
+	}).then((data) => {
+		sourceDetail.set(id, data);
 	});
 }
 
