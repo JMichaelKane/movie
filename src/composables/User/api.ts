@@ -134,15 +134,17 @@ function GetCategories() {
 		body: {},
 	}).then((data: any) => {
 		categories.value = [];
-		for (const key of data) {
-			let category: Category = {
-				id: key.id,
-				name: key.name,
-				classNum: key.classNum,
-				movieNum: key.movieNum,
-				create: false,
-			};
-			categories.value.push(category);
+		if (data) {
+			for (const key of data) {
+				let category: Category = {
+					id: key.id,
+					name: key.name,
+					classNum: key.classNum,
+					movieNum: key.movieNum,
+					create: false,
+				};
+				categories.value.push(category);
+			}
 		}
 	});
 }
