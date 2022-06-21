@@ -10,7 +10,13 @@
 		GetSourceMoviesByKeyword,
 		DelMovie,
 	} from "../../../../composables/User/api";
+
 	paths.value = [
+		{
+			name: "采集源",
+			params: null,
+			to: "",
+		},
 		{
 			name: "影片",
 			params: null,

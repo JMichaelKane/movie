@@ -1,9 +1,10 @@
 import router from "../../router/router";
 import { Ref } from "vue";
 import { baseFetch } from "./http";
-import { sources, moviesNum, categories, movies, LogInEd, sourceDetail } from "./data";
+import { sources, moviesNum, categories, movies, LogInEd } from "./data";
 import { Source, Category, Movie, Class } from "./public";
 import { newDetail, menuOptions, DefaultOptions } from "./menu";
+import { EditSettings24Filled } from "@vicons/fluent";
 
 function global() {
 	if (!LogInEd.value) {
@@ -198,7 +199,6 @@ async function GetSources() {
 			create: false,
 		};
 		sources.value.push(source);
-		await getSourceDetail(key.id); // 获取每个分类的采集类信息
 	}
 	menuOptions.value = [];
 	menuOptions.value = menuOptions.value.concat(DefaultOptions);
@@ -319,13 +319,35 @@ function UpdateSourceName(name: string) {
 	});
 }
 
-async function getSourceDetail(id: number) {
+async function getSourceDetail(id: number, end: Ref<Class[]>) {
 	const data = await baseFetch("/user/source/all_class/" + String(id), {
 		method: "GET",
 		handle: true,
 		body: {},
 	});
-	sourceDetail.set(id, data as Class[]);
+	end.value = data as Class[];
+}
+
+function ChangeClassGet(id: number, get: boolean) {
+	return baseFetch("/user/class/changeGet", {
+		method: "POST",
+		handle: false,
+		body: {
+			id: id,
+			get: get ? 1 : 0,
+		},
+	});
+}
+
+function DistributeClass(classId: number, categoryId: number) {
+	return baseFetch("/user/class/distribute", {
+		method: "POST",
+		handle: false,
+		body: {
+			classId: classId,
+			categoryId: categoryId,
+		},
+	});
 }
 
 export {
@@ -347,4 +369,7 @@ export {
 	UpdatePassword,
 	GetSourceMovies,
 	GetSourceMoviesByKeyword,
+	getSourceDetail,
+	ChangeClassGet,
+	DistributeClass,
 };
