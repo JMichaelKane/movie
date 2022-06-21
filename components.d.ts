@@ -52,6 +52,8 @@ declare module '@vue/runtime-core' {
     PanelHome: typeof import('./src/components/User/panel/PanelHome/PanelHome.vue')['default']
     PanelMovies: typeof import('./src/components/User/panel/PanelMovies/PanelMovies.vue')['default']
     PanelSource: typeof import('./src/components/User/panel/PanelSource/PanelSource.vue')['default']
+    PanelSourceClass: typeof import('./src/components/User/panel/PanelSourceClass/PanelSourceClass.vue')['default']
+    PanelSourceMovie: typeof import('./src/components/User/panel/PanelSourceMovie/PanelSourceMovie.vue')['default']
     PanelSystem: typeof import('./src/components/User/panel/PanelSystem/PanelSystem.vue')['default']
     Play: typeof import('./src/components/Front/Play.vue')['default']
     PlayMsg: typeof import('./src/components/Front/Play/PlayMsg.vue')['default']
