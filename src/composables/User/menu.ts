@@ -86,7 +86,10 @@ function newDetail(label: string, key: number): MenuOption {
 						RouterLink,
 						{
 							to: {
-								name: "movies",
+								name: "source-detail-class",
+								params: {
+									id: key,
+								},
 							},
 						},
 						{ default: () => "采集类" }
@@ -99,7 +102,10 @@ function newDetail(label: string, key: number): MenuOption {
 						RouterLink,
 						{
 							to: {
-								name: "movies",
+								name: "source-detail-movie",
+								params: {
+									id: key,
+								},
 							},
 						},
 						{ default: () => "影片" }

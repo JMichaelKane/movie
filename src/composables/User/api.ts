@@ -80,6 +80,39 @@ async function GetMovies(num: number, pg: number, movies: Ref<Movie[]>, pgCount?
 	}
 }
 
+async function GetSourceMovies(
+	id: string,
+	num: number,
+	pg: number,
+	movies: Ref<Movie[]>,
+	pgCount?: Ref<number>
+) {
+	const data: any = await baseFetch("/user/source/list", {
+		method: "POST",
+		handle: true,
+		body: {
+			id: id,
+			num: num,
+			pg: pg,
+		},
+	});
+	movies.value = [];
+	for (const key of data.movies) {
+		let movie: Movie = {
+			id: key.id,
+			name: key.name,
+			description: key.description,
+			duration: key.duration,
+			director: key.director,
+		};
+		movies.value.push(movie);
+	}
+	// console.log(typeof pgCount);
+	if (typeof pgCount != "undefined") {
+		pgCount.value = data.pgCount;
+	}
+}
+
 function GetMoviesByKeyword(
 	keyword: string,
 	num: number,
@@ -91,6 +124,41 @@ function GetMoviesByKeyword(
 		method: "POST",
 		handle: true,
 		body: {
+			keyword: keyword,
+			num: num,
+			pg: pg,
+		},
+	}).then((data: any) => {
+		movies.value = [];
+		for (const key of data.movies) {
+			let movie: Movie = {
+				id: key.id,
+				name: key.name,
+				description: key.description,
+				duration: key.duration,
+				director: key.director,
+			};
+			movies.value.push(movie);
+		}
+		if (typeof pgCount != "undefined") {
+			pgCount.value = data.pgCount;
+		}
+	});
+}
+
+function GetSourceMoviesByKeyword(
+	id: string,
+	keyword: string,
+	num: number,
+	pg: number,
+	movies: Ref<Movie[]>,
+	pgCount?: Ref<number>
+) {
+	baseFetch("/user/source/search", {
+		method: "POST",
+		handle: true,
+		body: {
+			id: id,
 			keyword: keyword,
 			num: num,
 			pg: pg,
@@ -277,4 +345,6 @@ export {
 	HandleGetting,
 	UpdateAccount,
 	UpdatePassword,
+	GetSourceMovies,
+	GetSourceMoviesByKeyword,
 };
