@@ -3,6 +3,7 @@ import { Ref } from "vue";
 import { baseFetch } from "./http";
 import { sources, moviesNum, categories, movies, LogInEd, sourceDetail } from "./data";
 import { Source, Category, Movie, Class } from "./public";
+import { newDetail, menuOptions, DefaultOptions } from "./menu";
 
 function global() {
 	if (!LogInEd.value) {
@@ -40,45 +41,43 @@ function LogOut() {
 	});
 }
 
-function GetMovieNum() {
-	return baseFetch("/user/count", {
+async function GetMovieNum() {
+	const data = await baseFetch("/user/count", {
 		method: "GET",
 		handle: false,
 		body: {},
-	}).then((data: any) => {
-		moviesNum.value = Number(data);
 	});
+	moviesNum.value = Number(data);
 }
 
 function GetMovies_panel() {
 	return GetMovies(20, 1, movies);
 }
 
-function GetMovies(num: number, pg: number, movies: Ref<Movie[]>, pgCount?: Ref<number>) {
-	return baseFetch("/user/list", {
+async function GetMovies(num: number, pg: number, movies: Ref<Movie[]>, pgCount?: Ref<number>) {
+	const data: any = await baseFetch("/user/list", {
 		method: "POST",
 		handle: true,
 		body: {
 			num: num,
 			pg: pg,
 		},
-	}).then((data: any) => {
-		movies.value = [];
-		for (const key of data.movies) {
-			let movie: Movie = {
-				id: key.id,
-				name: key.name,
-				description: key.description,
-				duration: key.duration,
-				director: key.director,
-			};
-			movies.value.push(movie);
-		}
-		// console.log(typeof pgCount);
-		if (typeof pgCount != "undefined") {
-			pgCount.value = data.pgCount;
-		}
 	});
+	movies.value = [];
+	for (const key of data.movies) {
+		let movie: Movie = {
+			id: key.id,
+			name: key.name,
+			description: key.description,
+			duration: key.duration,
+			director: key.director,
+		};
+		movies.value.push(movie);
+	}
+	// console.log(typeof pgCount);
+	if (typeof pgCount != "undefined") {
+		pgCount.value = data.pgCount;
+	}
 }
 
 function GetMoviesByKeyword(
@@ -114,49 +113,51 @@ function GetMoviesByKeyword(
 	});
 }
 
-function GetSources() {
-	return baseFetch("/user/source/all", {
+async function GetSources() {
+	const data = await baseFetch("/user/source/all", {
 		method: "GET",
 		handle: true,
 		body: {},
-	}).then((data: any) => {
-		sources.value = [];
-		for (const key of data) {
-			let source: Source = {
-				id: key.id,
-				name: key.name,
-				getting: key.get,
-				complete: key.ok,
-				url: key.url,
-				create: false,
-			};
-			sources.value.push(source);
-			getSourceDetail(key.id); // 获取每个分类的采集类信息
-		}
-		// console.log(data);
 	});
+	sources.value = [];
+	for (const key of data as any) {
+		let source: Source = {
+			id: key.id,
+			name: key.name,
+			getting: key.get,
+			complete: key.ok,
+			url: key.url,
+			create: false,
+		};
+		sources.value.push(source);
+		await getSourceDetail(key.id); // 获取每个分类的采集类信息
+	}
+	menuOptions.value = [];
+	menuOptions.value = menuOptions.value.concat(DefaultOptions);
+	for (const source of sources.value) {
+		menuOptions.value.push(newDetail(source.name, source.id));
+	}
 }
 
-function GetCategories() {
-	return baseFetch("/user/category/all", {
+async function GetCategories() {
+	const data = await baseFetch("/user/category/all", {
 		method: "GET",
 		handle: true,
 		body: {},
-	}).then((data: any) => {
-		categories.value = [];
-		if (data) {
-			for (const key of data) {
-				let category: Category = {
-					id: key.id,
-					name: key.name,
-					classNum: key.classNum,
-					movieNum: key.movieNum,
-					create: false,
-				};
-				categories.value.push(category);
-			}
-		}
 	});
+	categories.value = [];
+	if (data) {
+		for (const key of data as any) {
+			let category: Category = {
+				id: key.id,
+				name: key.name,
+				classNum: key.classNum,
+				movieNum: key.movieNum,
+				create: false,
+			};
+			categories.value.push(category);
+		}
+	}
 }
 
 function DelMovie(id: number) {
@@ -250,14 +251,13 @@ function UpdateSourceName(name: string) {
 	});
 }
 
-function getSourceDetail(id: number) {
-	return baseFetch("/user/source/all_class/" + String(id), {
+async function getSourceDetail(id: number) {
+	const data = await baseFetch("/user/source/all_class/" + String(id), {
 		method: "GET",
 		handle: true,
 		body: {},
-	}).then((data) => {
-		sourceDetail.set(id, data);
 	});
+	sourceDetail.set(id, data as Class[]);
 }
 
 export {

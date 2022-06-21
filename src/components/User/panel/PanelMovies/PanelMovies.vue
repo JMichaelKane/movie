@@ -125,10 +125,8 @@
 	onMounted(() => {
 		watchPostEffect(() => {
 			if (keyword.value.trim() != "") {
-				// console.log("触发关键字查询");
 				search(keyword.value, num, page.value, data, pgCount);
 			} else {
-				// console.log("触发查询");
 				GetMovies(num, page.value, data, pgCount);
 			}
 		});
