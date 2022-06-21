@@ -112,19 +112,17 @@
 	const page = ref<number>(1);
 	const pgCount = ref<number>(1);
 
-	function getMovies() {
-		if (keyword.value.trim() == "") {
-			GetMovies(num, page.value, data, pgCount);
-		} else {
-			search(keyword.value, num, page.value, data, pgCount);
-		}
-	}
-
 	const search = createDelayFunction(GetMoviesByKeyword, 500); // 防抖函数
+
+	let tmpKeyword: string;
 
 	onMounted(() => {
 		watchPostEffect(() => {
 			if (keyword.value.trim() != "") {
+				if (keyword.value.trim() != tmpKeyword) {
+					page.value = 1;
+					tmpKeyword = keyword.value.trim();
+				}
 				search(keyword.value, num, page.value, data, pgCount);
 			} else {
 				GetMovies(num, page.value, data, pgCount);
