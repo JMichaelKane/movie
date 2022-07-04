@@ -1,8 +1,16 @@
 <script setup lang="ts">
 	import { useNotification } from "naive-ui";
-	import { UpdateAccount, UpdatePassword } from "../../../composables/User/api";
+	import {
+		UpdateAccount,
+		UpdatePassword,
+		GetCollectInterval,
+		UpdateCollectInterval,
+	} from "../../../composables/User/api";
+
 	const account = ref<string>("");
 	const password = ref<string>("");
+	const interval = ref<number>(0);
+	const loading = ref<boolean>(true);
 	const notification = useNotification(); // 通知
 	function updateAccount() {
 		if (account.value != "") {
@@ -26,6 +34,18 @@
 			});
 		}
 	}
+	function update() {
+		UpdateCollectInterval(interval.value).then(() => {
+			notification["success"]({
+				duration: 2000,
+				content: "更新采集间隔",
+				meta: "操作成功，请关闭采集后再开启！",
+			});
+		});
+	}
+	GetCollectInterval(interval).then(() => {
+		loading.value = false;
+	});
 </script>
 
 <template>
@@ -41,6 +61,12 @@
 				<n-space>
 					<n-input v-model:value="password" type="text" placeholder="请输入密码" />
 					<n-button @click="updatePassword()">更新</n-button>
+				</n-space>
+			</n-card>
+			<n-card :bordered="false" title="修改密码:" size="small">
+				<n-space>
+					<n-input-number v-model:value="interval" :loading="loading" clearable />
+					<n-button @click="update">更新</n-button>
 				</n-space>
 			</n-card>
 		</n-card>

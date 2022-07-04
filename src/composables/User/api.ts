@@ -4,7 +4,6 @@ import { baseFetch } from "./http";
 import { sources, moviesNum, categories, movies, LogInEd } from "./data";
 import { Source, Category, Movie, Class } from "./public";
 import { newDetail, menuOptions, DefaultOptions } from "./menu";
-import { EditSettings24Filled } from "@vicons/fluent";
 
 function global() {
 	if (!LogInEd.value) {
@@ -350,6 +349,25 @@ function DistributeClass(classId: number, categoryId: number) {
 	});
 }
 
+async function GetCollectInterval(param: Ref<number>) {
+	const data = await baseFetch("/user/getCollectInterval", {
+		method: "GET",
+		handle: false,
+		body: {},
+	});
+	param.value = Number(data);
+}
+
+function UpdateCollectInterval(param: number) {
+	return baseFetch("/user/updateCollectInterval", {
+		method: "POST",
+		handle: false,
+		body: {
+			interval: param,
+		},
+	});
+}
+
 export {
 	Login,
 	LogOut,
@@ -372,4 +390,6 @@ export {
 	getSourceDetail,
 	ChangeClassGet,
 	DistributeClass,
+	GetCollectInterval,
+	UpdateCollectInterval,
 };
