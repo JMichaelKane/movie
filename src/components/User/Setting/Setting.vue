@@ -63,7 +63,7 @@
 					<n-button @click="updatePassword()">更新</n-button>
 				</n-space>
 			</n-card>
-			<n-card :bordered="false" title="修改密码:" size="small">
+			<n-card :bordered="false" title="修改采集间隔:" size="small">
 				<n-space>
 					<n-input-number v-model:value="interval" :loading="loading" clearable />
 					<n-button @click="update">更新</n-button>
