@@ -1,24 +1,24 @@
 <script setup lang="ts">
 	import logo from "../../../assets/logo_.png";
-	const options = [
-		{
-			label: "滨海湾金沙，新加坡",
-			key: "marina bay sands",
-		},
-		{
-			label: "布朗酒店，伦敦",
-			key: "brown's hotel, london",
-		},
-		{
-			label: "亚特兰蒂斯巴哈马，拿骚",
-			key: "atlantis nahamas, nassau",
-		},
-		{
-			label: "比佛利山庄酒店，洛杉矶",
-			key: "the beverly hills hotel, los angeles",
-		},
-	];
-	function handleSelect(key: string | number) {}
+	// const options = [
+	// 	{
+	// 		label: "滨海湾金沙，新加坡",
+	// 		key: "marina bay sands",
+	// 	},
+	// 	{
+	// 		label: "布朗酒店，伦敦",
+	// 		key: "brown's hotel, london",
+	// 	},
+	// 	{
+	// 		label: "亚特兰蒂斯巴哈马，拿骚",
+	// 		key: "atlantis nahamas, nassau",
+	// 	},
+	// 	{
+	// 		label: "比佛利山庄酒店，洛杉矶",
+	// 		key: "the beverly hills hotel, los angeles",
+	// 	},
+	// ];
+	// function handleSelect(key: string | number) {}
 </script>
 
 <template>
@@ -36,7 +36,7 @@
 					</router-link>
 				</div>
 			</n-grid-item>
-			<n-grid-item span="0 l:1">
+			<!-- <n-grid-item span="0 l:1">
 				<div style="height: 36px; display: flex; align-items: center; font-size: 1.125rem">
 					<span>分类1</span>
 				</div>
@@ -57,7 +57,7 @@
 						更多
 					</n-dropdown>
 				</div>
-			</n-grid-item>
+			</n-grid-item> -->
 		</n-grid>
 	</div>
 </template>
