@@ -11,22 +11,22 @@
     "@types/dplayer": "^1.25.2",
     "@types/qs": "^6.9.7",
     "@vicons/ionicons5": "^0.12.0",
-    "dplayer": "^1.26.0",
-    "hls.js": "^1.1.5",
+    "dplayer": "^1.27.0",
+    "hls.js": "^1.2.1",
     "qs": "^6.11.0",
-    "vue": "^3.2.37",
-    "vue-router": "^4.1.2"
+    "vue": "^3.2.38",
+    "vue-router": "^4.1.5"
   },
   "devDependencies": {
     "@types/hls.js": "^1.0.0",
     "@vicons/fluent": "^0.12.0",
-    "@vitejs/plugin-vue": "^2.3.3",
-    "naive-ui": "^2.31.0",
-    "typescript": "^4.7.4",
+    "@vitejs/plugin-vue": "^2.3.4",
+    "naive-ui": "^2.33.1",
+    "typescript": "^4.8.2",
     "unplugin-auto-import": "^0.7.2",
     "unplugin-vue-components": "^0.19.9",
     "vfonts": "^0.0.3",
-    "vite": "^2.9.14",
+    "vite": "^2.9.15",
     "vue-tsc": "^0.34.17"
   }
 }
