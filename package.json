@@ -14,14 +14,14 @@
     "dplayer": "^1.27.0",
     "hls.js": "^1.2.1",
     "qs": "^6.11.0",
-    "vue": "^3.2.38",
+    "vue": "^3.2.39",
     "vue-router": "^4.1.5"
   },
   "devDependencies": {
     "@types/hls.js": "^1.0.0",
     "@vicons/fluent": "^0.12.0",
     "@vitejs/plugin-vue": "^2.3.4",
-    "naive-ui": "^2.33.1",
+    "naive-ui": "^2.33.2",
     "typescript": "^4.8.2",
     "unplugin-auto-import": "^0.7.2",
     "unplugin-vue-components": "^0.19.9",
